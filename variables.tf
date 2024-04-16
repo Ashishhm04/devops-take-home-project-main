@@ -1,7 +1,7 @@
 variable "aws_region" {
   description = "AWS region to use"
   type        = string
-  default     = "us-west-1"
+  default     = "us-east-1"
 }
 
 variable "aws_access_key" {
@@ -28,9 +28,4 @@ variable "vpc_cidr" {
     condition     = tonumber(split("/", var.vpc_cidr)[1]) <= 20 && tonumber(split("/", var.vpc_cidr)[1]) >= 16
     error_message = "CIDR size must be at least /20 and no larger than /16"
   }
-}
-
-variable "aws_availability_zones" {
-   description = " please provide same availability zone for both subnets"
-   type = string
 }
