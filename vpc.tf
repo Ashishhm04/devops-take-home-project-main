@@ -32,7 +32,7 @@ locals {
 resource "aws_internet_gateway" "ig" {
   vpc_id = aws_vpc.main.id
   tags = {      
-    Name        = "igw"
+    Name        = "module.label_vpc.tags"
   }
 }
 
@@ -40,6 +40,7 @@ resource "aws_internet_gateway" "ig" {
 resource "aws_eip" "nat_eip" {
   vpc        = true
   depends_on = [aws_internet_gateway.ig]
+  tags       = module.label_vpc.tags
 }
 
 #NAT
@@ -48,7 +49,7 @@ resource "aws_nat_gateway" "nat" {
   subnet_id     = "${aws_subnet.public_subnet.id}"  
   depends_on    = [aws_internet_gateway.ig]
   tags = {
-    Name        = "nat"
+    Name        = "module.label_vpc.tags"
   }
 }
 
@@ -59,7 +60,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone       = "${var.aws_availability_zones}"
   map_public_ip_on_launch = true
   tags = {
-    Name        = "public-subnet"
+    Name        = "module.label_vpc.tags"
   }
 }
 
@@ -70,7 +71,7 @@ resource "aws_subnet" "private_subnet" {
   availability_zone       = "${var.aws_availability_zones}"
   map_public_ip_on_launch = false
   tags = {
-    Name        = "private-subnet"
+    Name        = "module.label_vpc.tags"
   }
 }
 
@@ -78,7 +79,7 @@ resource "aws_subnet" "private_subnet" {
 resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.main.id}"
   tags = {
-    Name        = "private-route-table"
+    Name        = "module.label_vpc.tags"
   }
 }
 
@@ -86,7 +87,7 @@ resource "aws_route_table" "private" {
 resource "aws_route_table" "public" {
   vpc_id = "${aws_vpc.main.id}"
   tags = {
-    Name        = "public-route-table"
+    Name        =  "module.label_vpc.tags"
   }
 }
 
