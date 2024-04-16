@@ -29,3 +29,8 @@ variable "vpc_cidr" {
     error_message = "CIDR size must be at least /20 and no larger than /16"
   }
 }
+
+variable "aws_availability_zones" {
+   description = " please provide same availability zone for both subnets"
+   type = string
+}
